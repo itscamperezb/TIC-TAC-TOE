@@ -1,4 +1,5 @@
 import Players from "./Players";
+import GameBoard from "./GameBoard";
 export default function Main() {
   return (
     <main>
@@ -7,7 +8,7 @@ export default function Main() {
           <Players name="Player 1" symbol="X" />
           <Players name="Player 2" symbol="O" />
         </ol>
-        GAME BOARD
+        <GameBoard />
       </div>
       LOG
     </main>
