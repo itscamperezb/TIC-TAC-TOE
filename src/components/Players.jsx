@@ -13,6 +13,9 @@ export default function Players(props) {
 
   function handleChangeName(event) {
     setPlayerName(event.target.value);
+    if (isEditing) {
+      props.nameChange(props.symbol, playerName);
+    }
   }
 
   let editablePlayerName;

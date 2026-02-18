@@ -23,7 +23,7 @@ function deriveActivePlayer(gameTurns) {
 export default function Main() {
   //hago este use state acá ya que esta información es necesaria tanto para <Player/> como para <GameBorad/>
   //entonces puedo coger activePlayer y pasarselos como props
-
+  const [players, setPlayers] = useState({ X: "Player 1", O: "Player 2" });
   const [gameTurns, setGameTurns] = useState([]);
 
   const activePlayer = deriveActivePlayer(gameTurns);
@@ -46,10 +46,11 @@ export default function Main() {
       firstSquare === secondSquare &&
       firstSquare === thirdSquare
     ) {
-      winner = firstSquare;
+      winner = players[firstSquare];
     }
   }
   let hasDraw = gameTurns.length === 9 && !winner;
+
   function handleSelectSquare(rowIndex, colIndex) {
     setGameTurns((prev) => {
       const currentPlayer = deriveActivePlayer(prev);
@@ -66,12 +67,28 @@ export default function Main() {
     setGameTurns([]);
     console.log("sirve");
   }
+
+  function handlePlayerNameChange(symbol, newName) {
+    setPlayers((prev) => {
+      return { ...prev, [symbol]: newName };
+    });
+  }
   return (
     <main>
       <div id="game-container">
         <ol id="players" className="highlight-player">
-          <Players name="Player 1" symbol="X" isactive={activePlayer === "X"} />
-          <Players name="Player 2" symbol="O" isactive={activePlayer === "O"} />
+          <Players
+            name="Player 1"
+            symbol="X"
+            isactive={activePlayer === "X"}
+            nameChange={handleRestart}
+          />
+          <Players
+            name="Player 2"
+            symbol="O"
+            isactive={activePlayer === "O"}
+            nameChange={handleRestart}
+          />
         </ol>
         {(winner || hasDraw) && (
           <GameOver winner={winner} restartGame={handleRestart} />
