@@ -34,7 +34,7 @@ export default function Players(props) {
   //   }
 
   return (
-    <li>
+    <li className={props.isactive ? "active" : undefined}>
       <span className="player">
         {editablePlayerName}
         <span className="player-symbol">{props.symbol}</span>
